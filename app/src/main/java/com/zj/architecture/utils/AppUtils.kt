@@ -34,3 +34,9 @@ sealed class PageState<out T> {
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> {
     return this
 }
+
+sealed class FetchStatus {
+    object Fetching : FetchStatus()
+    object Fetched : FetchStatus()
+    object NotFetched : FetchStatus()
+}

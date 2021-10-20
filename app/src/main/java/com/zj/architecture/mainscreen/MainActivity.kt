@@ -6,15 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.zj.architecture.R
 import com.zj.architecture.repository.NewsItem
+import com.zj.architecture.utils.FetchStatus
 import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainActVM by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     private val newsRvAdapter by lazy {
         NewsRvAdapter {
-            viewModel.process(MainViewEvent.NewsItemClicked(it.tag as NewsItem))
+            viewModel.dispatch(MainViewAction.NewsItemClicked(it.tag as NewsItem))
         }
     }
 
@@ -29,11 +30,11 @@ class MainActivity : AppCompatActivity() {
         rvNewsHome.adapter = newsRvAdapter
 
         srlNewsHome.setOnRefreshListener {
-            viewModel.process(MainViewEvent.OnSwipeRefresh)
+            viewModel.dispatch(MainViewAction.OnSwipeRefresh)
         }
 
         fabStar.setOnClickListener {
-            viewModel.process(MainViewEvent.FabClicked)
+            viewModel.dispatch(MainViewAction.FabClicked)
         }
     }
 
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.viewStates.observe(this) {
             renderViewState(it)
         }
-        viewModel.viewEffects.observe(this) {
+        viewModel.viewEvents.observe(this) {
             renderViewEffect(it)
         }
     }
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 srlNewsHome.isRefreshing = false
             }
             is FetchStatus.NotFetched -> {
-                viewModel.process(MainViewEvent.FetchNews)
+                viewModel.dispatch(MainViewAction.FetchNews)
                 srlNewsHome.isRefreshing = false
             }
             is FetchStatus.Fetching -> {
@@ -62,14 +63,14 @@ class MainActivity : AppCompatActivity() {
         newsRvAdapter.submitList(viewState.newsList)
     }
 
-    private fun renderViewEffect(viewEffect: MainViewEffect) {
-        when (viewEffect) {
-            is MainViewEffect.ShowSnackbar -> {
-                Snackbar.make(coordinatorLayoutRoot, viewEffect.message, Snackbar.LENGTH_SHORT)
+    private fun renderViewEffect(viewEvent: MainViewEvent) {
+        when (viewEvent) {
+            is MainViewEvent.ShowSnackbar -> {
+                Snackbar.make(coordinatorLayoutRoot, viewEvent.message, Snackbar.LENGTH_SHORT)
                     .show()
             }
-            is MainViewEffect.ShowToast -> {
-                toast(message = viewEffect.message)
+            is MainViewEvent.ShowToast -> {
+                toast(message = viewEvent.message)
             }
         }
     }
