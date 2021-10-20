@@ -21,8 +21,7 @@ class MainViewModel : ViewModel() {
     val viewEvents = _viewEvents.asLiveData()
 
     init {
-        _viewStates.value =
-            MainViewState(fetchStatus = FetchStatus.NotFetched, newsList = emptyList())
+        emit(MainViewState(fetchStatus = FetchStatus.NotFetched, newsList = emptyList()))
     }
 
     fun dispatch(action: MainViewAction) =
