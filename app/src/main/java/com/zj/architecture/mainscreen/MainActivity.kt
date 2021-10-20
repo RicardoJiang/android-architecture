@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             renderViewState(it)
         }
         viewModel.viewEvents.observe(this) {
-            renderViewEffect(it)
+            renderViewEvent(it)
         }
     }
 
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         newsRvAdapter.submitList(viewState.newsList)
     }
 
-    private fun renderViewEffect(viewEvent: MainViewEvent) {
+    private fun renderViewEvent(viewEvent: MainViewEvent) {
         when (viewEvent) {
             is MainViewEvent.ShowSnackbar -> {
                 Snackbar.make(coordinatorLayoutRoot, viewEvent.message, Snackbar.LENGTH_SHORT)
