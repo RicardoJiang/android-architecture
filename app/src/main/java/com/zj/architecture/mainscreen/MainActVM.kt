@@ -3,10 +3,11 @@ package com.zj.architecture.mainscreen
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zj.architecture.LCE
-import com.zj.architecture.asLiveData
 import com.zj.architecture.repository.NewsItem
 import com.zj.architecture.repository.NewsRepository
+import com.zj.architecture.utils.PageState
+import com.zj.architecture.utils.SingleLiveEvent
+import com.zj.architecture.utils.asLiveData
 import kotlinx.coroutines.launch
 
 
@@ -15,7 +16,7 @@ class MainActVM : ViewModel() {
     private val repository: NewsRepository = NewsRepository.getInstance()
     private val _viewStates: MutableLiveData<MainViewState> = MutableLiveData()
     val viewStates = _viewStates.asLiveData()
-    private val _viewEffects: MutableLiveData<MainViewEffect> = MutableLiveData()
+    private val _viewEffects: SingleLiveEvent<MainViewEffect> = SingleLiveEvent()
     val viewEffects = _viewEffects.asLiveData()
 
     init {
@@ -45,11 +46,11 @@ class MainActVM : ViewModel() {
         _viewStates.value = _viewStates.value?.copy(fetchStatus = FetchStatus.Fetching)
         viewModelScope.launch {
             when (val result = repository.getMockApiResponse()) {
-                is LCE.Error -> {
+                is PageState.Error -> {
                     _viewStates.value = _viewStates.value?.copy(fetchStatus = FetchStatus.Fetched)
                     _viewEffects.value = MainViewEffect.ShowToast(message = result.message)
                 }
-                is LCE.Success -> {
+                is PageState.Success -> {
                     _viewStates.value =
                         _viewStates.value?.copy(
                             fetchStatus = FetchStatus.Fetched,

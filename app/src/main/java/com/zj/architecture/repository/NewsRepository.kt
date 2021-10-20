@@ -1,7 +1,8 @@
 package com.zj.architecture.repository
 
-import com.zj.architecture.LCE
 import com.zj.architecture.mockapi.MockApi
+import com.zj.architecture.utils.PageState
+import kotlinx.coroutines.delay
 
 class NewsRepository {
 
@@ -16,17 +17,18 @@ class NewsRepository {
             }
     }
 
-    suspend fun getMockApiResponse(): LCE<List<NewsItem>> {
+    suspend fun getMockApiResponse(): PageState<List<NewsItem>> {
         val articlesApiResult = try {
+            delay(2000)
             MockApi.create().getLatestNews()
         } catch (e: Exception) {
-            return LCE.Error(e)
+            return PageState.Error(e)
         }
 
         articlesApiResult.articles?.let { list ->
-            return LCE.Success(data = list)
+            return PageState.Success(data = list)
         } ?: run {
-            return LCE.Error("Failed to get News")
+            return PageState.Error("Failed to get News")
         }
     }
 }

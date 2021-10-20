@@ -1,4 +1,4 @@
-package com.zj.architecture
+package com.zj.architecture.utils
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -24,9 +24,9 @@ fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
 }
 
 //LCE -> Loading/Content/Error
-sealed class LCE<out T> {
-    data class Success<T>(val data: T) : LCE<T>()
-    data class Error<T>(val message: String) : LCE<T>() {
+sealed class PageState<out T> {
+    data class Success<T>(val data: T) : PageState<T>()
+    data class Error<T>(val message: String) : PageState<T>() {
         constructor(t: Throwable) : this(t.message ?: "")
     }
 }

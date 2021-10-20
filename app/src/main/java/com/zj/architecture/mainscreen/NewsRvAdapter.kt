@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import com.zj.architecture.inflate
 import com.zj.architecture.R
 import com.zj.architecture.repository.NewsItem
+import com.zj.architecture.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_view.view.*
 

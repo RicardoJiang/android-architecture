@@ -1,6 +1,6 @@
 package com.zj.architecture.mockapi
 
-import com.zj.architecture.BASE_URL
+import com.zj.architecture.utils.BASE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

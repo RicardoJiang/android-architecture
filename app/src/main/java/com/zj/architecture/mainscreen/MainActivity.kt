@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.zj.architecture.R
 import com.zj.architecture.repository.NewsItem
-import com.zj.architecture.toast
+import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
