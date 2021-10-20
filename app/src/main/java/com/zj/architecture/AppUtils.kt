@@ -1,10 +1,12 @@
-package com.rohitss.mvr
+package com.zj.architecture
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 const val BASE_URL = "https://your_api_endpoint.com/"
 
@@ -27,4 +29,8 @@ sealed class LCE<out T> {
     data class Error<T>(val message: String) : LCE<T>() {
         constructor(t: Throwable) : this(t.message ?: "")
     }
+}
+
+fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> {
+    return this
 }

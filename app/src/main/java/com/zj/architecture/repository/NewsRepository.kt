@@ -1,6 +1,6 @@
 package com.zj.architecture.repository
 
-import com.rohitss.mvr.LCE
+import com.zj.architecture.LCE
 import com.zj.architecture.mockapi.MockApi
 
 class NewsRepository {
