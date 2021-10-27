@@ -7,7 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.zj.architecture.R
 import com.zj.architecture.repository.NewsItem
 import com.zj.architecture.utils.FetchStatus
-import com.zj.architecture.utils.map
+import com.zj.architecture.utils.observeState
 import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel.viewStates.let { state ->
-            state.map(MainViewState::newsList).observe(this) { list ->
-                newsRvAdapter.submitList(list)
+            state.observeState(this, MainViewState::newsList) {
+                newsRvAdapter.submitList(it)
             }
-            state.map(MainViewState::fetchStatus).observe(this){
+            state.observeState(this, MainViewState::fetchStatus) {
                 when (it) {
                     is FetchStatus.Fetched -> {
                         srlNewsHome.isRefreshing = false
@@ -59,19 +59,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.viewStates.observe(this) {
-            renderViewState(it)
-        }
         viewModel.viewEvents.observe(this) {
             renderViewEvent(it)
         }
-    }
-
-    private fun renderViewState(viewState: MainViewState) {
-        when (viewState.fetchStatus) {
-
-        }
-
     }
 
     private fun renderViewEvent(viewEvent: MainViewEvent) {
