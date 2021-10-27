@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
+import kotlin.reflect.KProperty1
 
 const val BASE_URL = "https://your_api_endpoint.com/"
 
@@ -39,4 +42,12 @@ sealed class FetchStatus {
     object Fetching : FetchStatus()
     object Fetched : FetchStatus()
     object NotFetched : FetchStatus()
+}
+
+fun <T, A> LiveData<T>.map(
+    prop1: KProperty1<T, A>
+):LiveData<A> {
+    return this.map {
+        prop1.get(it)
+    }.distinctUntilChanged()
 }
