@@ -4,7 +4,10 @@ import com.zj.architecture.repository.NewsItem
 import com.zj.architecture.utils.FetchStatus
 
 
-data class MainViewState(val fetchStatus: FetchStatus, val newsList: List<NewsItem>)
+data class MainViewState(
+    val fetchStatus: FetchStatus = FetchStatus.NotFetched,
+    val newsList: List<NewsItem> = emptyList()
+)
 
 sealed class MainViewEvent {
     data class ShowSnackbar(val message: String) : MainViewEvent()
