@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
     private val repository: NewsRepository = NewsRepository.getInstance()
     private val _viewStates: MutableLiveData<MainViewState> = MutableLiveData(MainViewState())
     val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: SingleLiveEvent<MainViewEvent> = SingleLiveEvent()
+    private val _viewEvents: SingleLiveEvent<MainViewEvent> = SingleLiveEvent() //一次性的事件，与页面状态分开管理
     val viewEvents = _viewEvents.asLiveData()
 
     fun dispatch(viewAction: MainViewAction) {
