@@ -58,3 +58,7 @@ fun <T> MutableLiveData<T>.setState(reducer: T.() -> T) {
 fun <T> SingleLiveEvent<T>.setEvent(value: T) {
     this.value = value
 }
+
+fun <T> withState(state: LiveData<T>, block: (T) -> Unit) {
+    state.value?.let(block)
+}
