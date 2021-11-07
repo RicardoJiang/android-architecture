@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".mainscreen.MainActivity" />
         <activity android:name=".networkscreen.NetworkActivity" />
+        <activity android:name=".networkscreen.FlowActivity"/>
     </application>
 
 </manifest>

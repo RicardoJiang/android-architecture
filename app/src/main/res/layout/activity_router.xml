@@ -20,4 +20,11 @@
         android:text="MVI架构网络封装"
         android:onClick="network"
         tools:ignore="HardcodedText" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="MVI架构网络封装flow版"
+        android:onClick="flow"
+        tools:ignore="HardcodedText" />
 </LinearLayout>
