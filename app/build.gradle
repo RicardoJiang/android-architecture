@@ -59,4 +59,5 @@ dependencies {
     //Webservices
     implementation("com.squareup.retrofit2:retrofit:2.6.2")
     implementation("com.squareup.retrofit2:converter-gson:2.6.2")
+    implementation 'com.github.liangjingkanji:StateLayout:1.2.0'
 }

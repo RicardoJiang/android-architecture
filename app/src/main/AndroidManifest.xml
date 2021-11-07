@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidarchitecture">
         <activity
-            android:name=".mainscreen.MainActivity"
+            android:name=".RouterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mainscreen.MainActivity" />
+        <activity android:name=".networkscreen.NetworkActivity" />
     </application>
 
 </manifest>
