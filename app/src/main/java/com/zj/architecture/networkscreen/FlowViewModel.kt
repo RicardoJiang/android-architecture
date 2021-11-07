@@ -46,7 +46,7 @@ class FlowViewModel : ViewModel() {
     }
 
     /**
-     * 页面局部请求，利用点赞收藏等，通常需要弹dialog或toast
+     * 页面局部请求，例如点赞收藏等，通常需要弹dialog或toast
      */
     private fun partRequest() {
         viewModelScope.launch {
