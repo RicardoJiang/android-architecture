@@ -1,11 +1,13 @@
 package com.zj.architecture.networkscreen
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.zj.architecture.R
 import com.zj.architecture.observeState
+import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_network.*
 
 class NetworkActivity : AppCompatActivity() {
@@ -31,7 +33,11 @@ class NetworkActivity : AppCompatActivity() {
         }
 
         viewModel.viewEvents.observe(this) {
-
+            when (it) {
+                is NetworkViewEvent.ShowToast -> toast(it.message)
+                is NetworkViewEvent.ShowLoadingDialog -> showLoadingDialog()
+                is NetworkViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
+            }
         }
     }
 
@@ -40,14 +46,26 @@ class NetworkActivity : AppCompatActivity() {
     }
 
     fun partRequest(view: View) {
-
+        viewModel.dispatch(NetworkViewAction.PartRequest)
     }
 
     fun multiSource(view: View) {
-
+        viewModel.dispatch(NetworkViewAction.MultiRequest)
     }
 
-    fun requestError(view: View) {
+    fun errorRequest(view: View) {
+        viewModel.dispatch(NetworkViewAction.ErrorRequest)
+    }
 
+    private var progressDialog: ProgressDialog? = null
+
+    private fun showLoadingDialog() {
+        if (progressDialog == null)
+            progressDialog = ProgressDialog(this)
+        progressDialog?.show()
+    }
+
+    private fun dismissLoadingDialog() {
+        progressDialog?.takeIf { it.isShowing }?.dismiss()
     }
 }

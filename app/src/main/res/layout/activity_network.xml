@@ -41,7 +41,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:onClick="requestError"
+                android:onClick="errorRequest"
                 android:text="请求错误"
                 tools:ignore="HardcodedText" />
 
