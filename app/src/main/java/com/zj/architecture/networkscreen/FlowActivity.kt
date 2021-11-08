@@ -33,10 +33,12 @@ class FlowActivity : AppCompatActivity() {
         }
 
         viewModel.viewEvents.observe(this) {
-            when (it) {
-                is NetworkViewEvent.ShowToast -> toast(it.message)
-                is NetworkViewEvent.ShowLoadingDialog -> showLoadingDialog()
-                is NetworkViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
+            it.forEach { event ->
+                when (event) {
+                    is NetworkViewEvent.ShowToast -> toast(event.message)
+                    is NetworkViewEvent.ShowLoadingDialog -> showLoadingDialog()
+                    is NetworkViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
+                }
             }
         }
     }
