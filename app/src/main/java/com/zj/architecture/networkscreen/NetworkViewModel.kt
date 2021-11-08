@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.zj.architecture.network.rxLaunch
 import com.zj.architecture.setEvent
 import com.zj.architecture.setState
-import com.zj.architecture.utils.SingleLiveEvent
+import com.zj.architecture.utils.SingleLiveEvents
 import com.zj.architecture.utils.asLiveData
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.delay
 class NetworkViewModel : ViewModel() {
     private val _viewStates = MutableLiveData(NetworkViewState())
     val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: SingleLiveEvent<List<NetworkViewEvent>> = SingleLiveEvent()
+    private val _viewEvents: SingleLiveEvents<NetworkViewEvent> = SingleLiveEvents()
     val viewEvents = _viewEvents.asLiveData()
 
     fun dispatch(viewAction: NetworkViewAction) {
@@ -52,18 +52,19 @@ class NetworkViewModel : ViewModel() {
     private fun partRequest() {
         viewModelScope.rxLaunch<String> {
             onRequest = {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.ShowLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.ShowLoadingDialog)
                 delay(2000)
                 "点赞成功"
             }
             onSuccess = {
                 _viewEvents.setEvent(
-                    listOf(NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it))
+                    NetworkViewEvent.DismissLoadingDialog,
+                    NetworkViewEvent.ShowToast(it)
                 )
                 _viewStates.setState { copy(content = it) }
             }
             onError = {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.DismissLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.DismissLoadingDialog)
             }
         }
     }
@@ -74,7 +75,7 @@ class NetworkViewModel : ViewModel() {
     private fun multiSourceRequest() {
         viewModelScope.rxLaunch<String> {
             onRequest = {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.ShowLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.ShowLoadingDialog)
                 coroutineScope {
                     val source1 = async { source1() }
                     val source2 = async { source2() }
@@ -84,12 +85,12 @@ class NetworkViewModel : ViewModel() {
             }
             onSuccess = {
                 _viewEvents.setEvent(
-                    listOf(NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it))
+                    NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it)
                 )
                 _viewStates.setState { copy(content = it) }
             }
             onError = {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.DismissLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.DismissLoadingDialog)
             }
         }
     }
@@ -100,19 +101,19 @@ class NetworkViewModel : ViewModel() {
     private fun errorRequest() {
         viewModelScope.rxLaunch<String> {
             onRequest = {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.ShowLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.ShowLoadingDialog)
                 delay(2000)
                 throw NullPointerException("")
                 "请求失败"
             }
             onSuccess = {
                 _viewEvents.setEvent(
-                    listOf(NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it))
+                    NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it)
                 )
                 _viewStates.setState { copy(content = it) }
             }
             onError = {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.DismissLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.DismissLoadingDialog)
             }
         }
     }

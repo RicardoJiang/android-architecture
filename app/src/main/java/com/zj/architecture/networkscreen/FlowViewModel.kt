@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.zj.architecture.network.commonCatch
 import com.zj.architecture.setEvent
 import com.zj.architecture.setState
-import com.zj.architecture.utils.SingleLiveEvent
+import com.zj.architecture.utils.SingleLiveEvents
 import com.zj.architecture.utils.asLiveData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class FlowViewModel : ViewModel() {
     private val _viewStates = MutableLiveData(NetworkViewState())
     val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: SingleLiveEvent<List<NetworkViewEvent>> = SingleLiveEvent()
+    private val _viewEvents: SingleLiveEvents<NetworkViewEvent> = SingleLiveEvents()
     val viewEvents = _viewEvents.asLiveData()
 
     fun dispatch(viewAction: NetworkViewAction) {
@@ -54,14 +54,14 @@ class FlowViewModel : ViewModel() {
                 delay(2000)
                 emit("点赞成功")
             }.onStart {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.ShowLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.ShowLoadingDialog)
             }.onEach {
                 _viewEvents.setEvent(
-                    listOf(NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it))
+                    NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it)
                 )
                 _viewStates.setState { copy(content = it) }
             }.commonCatch {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.DismissLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.DismissLoadingDialog)
             }.collect()
         }
     }
@@ -82,14 +82,14 @@ class FlowViewModel : ViewModel() {
             flow1.zip(flow2) { a, b ->
                 "$a,$b"
             }.onStart {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.ShowLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.ShowLoadingDialog)
             }.onEach {
                 _viewEvents.setEvent(
-                    listOf(NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it))
+                    NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it)
                 )
                 _viewStates.setState { copy(content = it) }
             }.commonCatch {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.DismissLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.DismissLoadingDialog)
             }.collect()
         }
     }
@@ -104,14 +104,14 @@ class FlowViewModel : ViewModel() {
                 throw NullPointerException("")
                 emit("请求失败")
             }.onStart {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.ShowLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.ShowLoadingDialog)
             }.onEach {
                 _viewEvents.setEvent(
-                    listOf(NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it))
+                    NetworkViewEvent.DismissLoadingDialog, NetworkViewEvent.ShowToast(it)
                 )
                 _viewStates.setState { copy(content = it) }
             }.commonCatch {
-                _viewEvents.setEvent(listOf(NetworkViewEvent.DismissLoadingDialog))
+                _viewEvents.setEvent(NetworkViewEvent.DismissLoadingDialog)
             }.collect()
         }
     }

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.zj.architecture.R
+import com.zj.architecture.observeEvent
 import com.zj.architecture.observeState
 import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_network.*
@@ -32,13 +33,11 @@ class FlowActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.viewEvents.observe(this) {
-            it.forEach { event ->
-                when (event) {
-                    is NetworkViewEvent.ShowToast -> toast(event.message)
-                    is NetworkViewEvent.ShowLoadingDialog -> showLoadingDialog()
-                    is NetworkViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
-                }
+        viewModel.viewEvents.observeEvent(this) {
+            when (it) {
+                is NetworkViewEvent.ShowToast -> toast(it.message)
+                is NetworkViewEvent.ShowLoadingDialog -> showLoadingDialog()
+                is NetworkViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
             }
         }
     }
