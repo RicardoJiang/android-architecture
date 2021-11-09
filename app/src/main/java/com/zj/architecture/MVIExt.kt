@@ -72,6 +72,6 @@ fun <T> LiveData<List<T>>.observeEvent(lifecycleOwner: LifecycleOwner, action: (
     }
 }
 
-fun <T> withState(state: LiveData<T>, block: (T) -> Unit) {
-    state.value?.let(block)
+fun <T, R> withState(state: LiveData<T>, block: (T) -> R): R? {
+    return state.value?.let(block)
 }
