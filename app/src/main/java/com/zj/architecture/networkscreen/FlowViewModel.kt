@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.zj.architecture.network.commonCatch
 import com.zj.architecture.setEvent
 import com.zj.architecture.setState
-import com.zj.architecture.utils.SingleLiveEvents
+import com.zj.mvi.core.SingleLiveEvents
 import com.zj.architecture.utils.asLiveData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 class FlowViewModel : ViewModel() {
     private val _viewStates = MutableLiveData(NetworkViewState())
     val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: SingleLiveEvents<NetworkViewEvent> = SingleLiveEvents()
+    private val _viewEvents: com.zj.mvi.core.SingleLiveEvents<NetworkViewEvent> =
+        com.zj.mvi.core.SingleLiveEvents()
     val viewEvents = _viewEvents.asLiveData()
 
     fun dispatch(viewAction: NetworkViewAction) {

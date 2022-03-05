@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
-import com.zj.architecture.utils.SingleLiveEvent
-import com.zj.architecture.utils.SingleLiveEvents
+import com.zj.mvi.core.SingleLiveEvents
 import kotlin.reflect.KProperty1
 
 fun <T, A> LiveData<T>.observeState(
@@ -54,10 +53,6 @@ internal data class StateTuple3<A, B, C>(val a: A, val b: B, val c: C)
 
 fun <T> MutableLiveData<T>.setState(reducer: T.() -> T) {
     this.value = this.value?.reducer()
-}
-
-fun <T> SingleLiveEvent<T>.setEvent(value: T) {
-    this.value = value
 }
 
 fun <T> SingleLiveEvents<T>.setEvent(vararg values: T) {

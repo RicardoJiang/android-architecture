@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.zj.architecture.R
+import com.zj.architecture.observeEvent
 import com.zj.architecture.observeState
 import com.zj.architecture.repository.NewsItem
 import com.zj.architecture.utils.FetchStatus
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.viewEvents.observe(this) {
+        viewModel.viewEvents.observeEvent(this) {
             renderViewEvent(it)
         }
     }

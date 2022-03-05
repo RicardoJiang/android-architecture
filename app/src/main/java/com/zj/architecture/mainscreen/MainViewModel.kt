@@ -9,8 +9,8 @@ import com.zj.architecture.setEvent
 import com.zj.architecture.setState
 import com.zj.architecture.utils.FetchStatus
 import com.zj.architecture.utils.PageState
-import com.zj.architecture.utils.SingleLiveEvent
 import com.zj.architecture.utils.asLiveData
+import com.zj.mvi.core.SingleLiveEvents
 import kotlinx.coroutines.launch
 
 
@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
     private val repository: NewsRepository = NewsRepository.getInstance()
     private val _viewStates: MutableLiveData<MainViewState> = MutableLiveData(MainViewState())
     val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: SingleLiveEvent<MainViewEvent> = SingleLiveEvent() //一次性的事件，与页面状态分开管理
+    private val _viewEvents: SingleLiveEvents<MainViewEvent> = SingleLiveEvents() //一次性的事件，与页面状态分开管理
     val viewEvents = _viewEvents.asLiveData()
 
     fun dispatch(viewAction: MainViewAction) {

@@ -6,10 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.zj.architecture.login.LoginViewAction
 import com.zj.architecture.login.LoginViewEvent
 import com.zj.architecture.login.LoginViewState
-import com.zj.architecture.network.commonCatch
 import com.zj.architecture.setEvent
 import com.zj.architecture.setState
-import com.zj.architecture.utils.SingleLiveEvents
+import com.zj.mvi.core.SingleLiveEvents
 import com.zj.architecture.utils.asLiveData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -18,7 +17,8 @@ import kotlinx.coroutines.launch
 class LoginViewModel : ViewModel() {
     private val _viewStates = MutableLiveData(LoginViewState())
     val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: SingleLiveEvents<LoginViewEvent> = SingleLiveEvents()
+    private val _viewEvents: com.zj.mvi.core.SingleLiveEvents<LoginViewEvent> =
+        com.zj.mvi.core.SingleLiveEvents()
     val viewEvents = _viewEvents.asLiveData()
 
     fun dispatch(viewAction: LoginViewAction) {

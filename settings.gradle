@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "android-architecture"
 include ':app'
+include ':mvi-core'

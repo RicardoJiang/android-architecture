@@ -1,4 +1,4 @@
-package com.zj.architecture.utils
+package com.zj.mvi.core
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
@@ -18,12 +18,12 @@ class SingleLiveEvents<T> : MutableLiveData<List<T>>() {
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in List<T>>) {
-        super.observe(owner, { t ->
+        super.observe(owner) { t ->
             if (pending.compareAndSet(true, false)) {
                 eventList.clear()
                 observer.onChanged(t)
             }
-        })
+        }
     }
 
     @MainThread
