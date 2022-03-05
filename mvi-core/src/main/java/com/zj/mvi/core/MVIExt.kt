@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.reflect.KProperty1
 
 fun <T, A> LiveData<T>.observeState(
@@ -55,10 +54,6 @@ fun <T> MutableLiveData<T>.setState(reducer: T.() -> T) {
     this.value = this.value?.reducer()
 }
 
-fun <T> MutableStateFlow<T>.setState(reducer: T.() -> T){
-    this.value = this.value.reducer()
-}
-
 fun <T> SingleLiveEvents<T>.setEvent(vararg values: T) {
     this.value = values.toList()
 }
@@ -71,6 +66,6 @@ fun <T> LiveData<List<T>>.observeEvent(lifecycleOwner: LifecycleOwner, action: (
     }
 }
 
-fun <T, R> withState(state: LiveData<T>, block: (T) -> R): R? {
+inline fun <T, R> withState(state: LiveData<T>, block: (T) -> R): R? {
     return state.value?.let(block)
 }

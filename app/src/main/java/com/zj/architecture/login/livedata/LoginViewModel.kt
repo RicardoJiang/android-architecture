@@ -9,6 +9,7 @@ import com.zj.architecture.login.LoginViewState
 import com.zj.mvi.core.setEvent
 import com.zj.mvi.core.setState
 import com.zj.architecture.utils.asLiveData
+import com.zj.mvi.core.withState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -39,9 +40,8 @@ class LoginViewModel : ViewModel() {
     private fun login() {
         viewModelScope.launch {
             flow {
-                delay(2000)
-                throw Exception("登录失败")
-                emit("点赞成功")
+                loginLogic()
+                emit("登录成功")
             }.onStart {
                 _viewEvents.setEvent(LoginViewEvent.ShowLoadingDialog)
             }.onEach {
@@ -54,6 +54,16 @@ class LoginViewModel : ViewModel() {
                     LoginViewEvent.DismissLoadingDialog, LoginViewEvent.ShowToast("登录失败")
                 )
             }.collect()
+        }
+    }
+
+    private suspend fun loginLogic() {
+        withState(viewStates) {
+            val userName = it.userName
+            val password = it.password
+            delay(2000)
+            throw Exception("登录失败")
+            "$userName,$password"
         }
     }
 }
