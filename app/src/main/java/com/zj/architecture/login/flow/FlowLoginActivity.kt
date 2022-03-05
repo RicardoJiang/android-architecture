@@ -2,7 +2,6 @@ package com.zj.architecture.login.flow
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,9 @@ import com.zj.architecture.R
 import com.zj.architecture.login.LoginViewAction
 import com.zj.architecture.login.LoginViewEvent
 import com.zj.architecture.login.LoginViewState
+import com.zj.architecture.utils.toast
 import com.zj.mvi.core.observeEvent
 import com.zj.mvi.core.observeState
-import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.layout_login.*
 
 class FlowLoginActivity : AppCompatActivity() {
@@ -60,7 +59,6 @@ class FlowLoginActivity : AppCompatActivity() {
 
     private fun initViewEvents() {
         viewModel.viewEvents.observeEvent(this) {
-            Log.i("tiaoshi","event:"+it)
             when (it) {
                 is LoginViewEvent.ShowToast -> toast(it.message)
                 is LoginViewEvent.ShowLoadingDialog -> showLoadingDialog()

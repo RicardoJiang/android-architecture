@@ -58,6 +58,10 @@ fun <T> SingleLiveEvents<T>.setEvent(vararg values: T) {
     this.value = values.toList()
 }
 
+fun <T> LiveEvents<T>.setEvent(vararg values: T) {
+    this.value = values.toList()
+}
+
 fun <T> LiveData<List<T>>.observeEvent(lifecycleOwner: LifecycleOwner, action: (T) -> Unit) {
     this.observe(lifecycleOwner) {
         it.forEach { event ->
