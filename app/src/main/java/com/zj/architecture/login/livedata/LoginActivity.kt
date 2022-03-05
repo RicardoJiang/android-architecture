@@ -10,8 +10,8 @@ import com.zj.architecture.R
 import com.zj.architecture.login.LoginViewAction
 import com.zj.architecture.login.LoginViewEvent
 import com.zj.architecture.login.LoginViewState
-import com.zj.architecture.observeEvent
-import com.zj.architecture.observeState
+import com.zj.mvi.core.observeEvent
+import com.zj.mvi.core.observeState
 import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.layout_login.*
 

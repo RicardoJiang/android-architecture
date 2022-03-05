@@ -6,8 +6,8 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.zj.architecture.R
-import com.zj.architecture.observeEvent
-import com.zj.architecture.observeState
+import com.zj.mvi.core.observeEvent
+import com.zj.mvi.core.observeState
 import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_network.*
 

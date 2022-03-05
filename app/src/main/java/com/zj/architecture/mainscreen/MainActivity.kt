@@ -5,8 +5,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.zj.architecture.R
-import com.zj.architecture.observeEvent
-import com.zj.architecture.observeState
+import com.zj.mvi.core.observeEvent
+import com.zj.mvi.core.observeState
 import com.zj.architecture.repository.NewsItem
 import com.zj.architecture.utils.FetchStatus
 import com.zj.architecture.utils.toast

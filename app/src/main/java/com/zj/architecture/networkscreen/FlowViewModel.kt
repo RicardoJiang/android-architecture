@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.architecture.network.commonCatch
-import com.zj.architecture.setEvent
-import com.zj.architecture.setState
-import com.zj.mvi.core.SingleLiveEvents
+import com.zj.mvi.core.setEvent
+import com.zj.mvi.core.setState
 import com.zj.architecture.utils.asLiveData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
