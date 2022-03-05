@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.zj.architecture.login.livedata.LoginActivity
-import com.zj.architecture.networkscreen.FlowActivity
+import com.zj.architecture.mainscreen.MainActivity
+import com.zj.architecture.networkscreen.NetworkActivity
 
 class RouterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,10 +15,14 @@ class RouterActivity : AppCompatActivity() {
     }
 
     fun simple(view: View) {
-        startActivity(Intent(this, LoginActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
-    fun flow(view: View) {
-        startActivity(Intent(this, FlowActivity::class.java))
+    fun network(view: View) {
+        startActivity(Intent(this, NetworkActivity::class.java))
+    }
+
+    fun login(view: View) {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

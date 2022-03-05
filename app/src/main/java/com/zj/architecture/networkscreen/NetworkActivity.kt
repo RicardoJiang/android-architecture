@@ -11,7 +11,7 @@ import com.zj.architecture.observeState
 import com.zj.architecture.utils.toast
 import kotlinx.android.synthetic.main.activity_network.*
 
-class FlowActivity : AppCompatActivity() {
+class NetworkActivity : AppCompatActivity() {
     private val viewModel by viewModels<FlowViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
