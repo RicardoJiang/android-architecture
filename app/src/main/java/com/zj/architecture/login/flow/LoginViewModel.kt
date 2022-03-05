@@ -1,25 +1,23 @@
-package com.zj.architecture.login.livedata
+package com.zj.architecture.login.flow
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.architecture.login.LoginViewAction
 import com.zj.architecture.login.LoginViewEvent
 import com.zj.architecture.login.LoginViewState
+import com.zj.mvi.core.SharedFlowEvents
 import com.zj.mvi.core.setEvent
 import com.zj.mvi.core.setState
-import com.zj.architecture.utils.asLiveData
 import com.zj.mvi.core.withState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    private val _viewStates = MutableLiveData(LoginViewState())
-    val viewStates = _viewStates.asLiveData()
-    private val _viewEvents: com.zj.mvi.core.SingleLiveEvents<LoginViewEvent> =
-        com.zj.mvi.core.SingleLiveEvents()
-    val viewEvents = _viewEvents.asLiveData()
+    private val _viewStates = MutableStateFlow(LoginViewState())
+    val viewStates = _viewStates.asStateFlow()
+    private val _viewEvents = SharedFlowEvents<LoginViewEvent>()
+    val viewEvents = _viewEvents.asSharedFlow()
 
     fun dispatch(viewAction: LoginViewAction) {
         when (viewAction) {

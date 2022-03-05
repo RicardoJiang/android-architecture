@@ -22,6 +22,7 @@
         <activity android:name=".mainscreen.MainActivity" />
         <activity android:name=".networkscreen.NetworkActivity"/>
         <activity android:name=".login.livedata.LoginActivity"/>
+        <activity android:name=".login.flow.FlowLoginActivity"/>
     </application>
 
 </manifest>

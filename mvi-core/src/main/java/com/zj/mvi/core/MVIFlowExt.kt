@@ -70,19 +70,24 @@ inline fun <T, R> withState(state: StateFlow<T>, block: (T) -> R): R {
     return state.value.let(block)
 }
 
-suspend fun <T> MutableSharedFlow<List<T>>.setEvent(vararg values: T) {
+suspend fun <T> SharedFlowEvents<T>.setEvent(vararg values: T) {
     val eventList = values.toList()
     this.emit(eventList)
 }
 
 fun <T> SharedFlow<List<T>>.observeEvent(lifecycleOwner: LifecycleOwner, action: (T) -> Unit) {
-    lifecycleOwner.lifecycleScope.launch {
-        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            this@observeEvent.collect {
-                it.forEach { event ->
-                    action.invoke(event)
-                }
+    lifecycleOwner.lifecycleScope.launchWhenStarted {
+        this@observeEvent.collect {
+            it.forEach { event ->
+                action.invoke(event)
             }
         }
     }
+}
+
+typealias SharedFlowEvents<T> = MutableSharedFlow<List<T>>
+
+@Suppress("FunctionName")
+fun <T> SharedFlowEvents(): SharedFlowEvents<T> {
+    return MutableSharedFlow()
 }
