@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".mainscreen.MainActivity" />
-        <activity android:name=".networkscreen.NetworkActivity" />
         <activity android:name=".networkscreen.FlowActivity"/>
+        <activity android:name=".login.livedata.LoginActivity"/>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.zj.architecture.mainscreen.MainActivity
+import com.zj.architecture.login.livedata.LoginActivity
 import com.zj.architecture.networkscreen.FlowActivity
 
 class RouterActivity : AppCompatActivity() {
@@ -14,7 +14,7 @@ class RouterActivity : AppCompatActivity() {
     }
 
     fun simple(view: View) {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     fun flow(view: View) {
