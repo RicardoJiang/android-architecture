@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * 比如我们在请求开始时发出ShowLoading，网络请求成功后发出DismissLoading与Toast事件
  * 如果我们在请求开始后回到桌面，成功后再回到App,这样有一个事件就会被覆盖，因此将所有事件通过List存储
  */
-open class LiveEvents<T> : MutableLiveData<List<T>>() {
+class LiveEvents<T> : MutableLiveData<List<T>>() {
 
     private val observers = hashSetOf<ObserverWrapper<in T>>()
 
@@ -39,7 +39,6 @@ open class LiveEvents<T> : MutableLiveData<List<T>>() {
     @MainThread
     override fun removeObserver(observer: Observer<in List<T>>) {
         if (observer is ObserverWrapper<*> && observers.remove(observer)) {
-            observer.clear()
             super.removeObserver(observer)
             return
         }
@@ -48,7 +47,6 @@ open class LiveEvents<T> : MutableLiveData<List<T>>() {
             val wrapper = iterator.next()
             if (wrapper.observer == observer) {
                 iterator.remove()
-                wrapper.clear()
                 super.removeObserver(wrapper)
                 break
             }
@@ -77,10 +75,6 @@ open class LiveEvents<T> : MutableLiveData<List<T>>() {
             t?.let {
                 eventList.add(it)
             }
-        }
-
-        fun clear() {
-            eventList.clear()
         }
     }
 }
